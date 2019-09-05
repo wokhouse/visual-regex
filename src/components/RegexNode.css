@@ -1,0 +1,10 @@
+.node-emoji-button {
+  background: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.node-emoji-button:active {
+  background: lightgray;
+  border-radius: 2px;
+}

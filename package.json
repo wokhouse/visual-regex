@@ -9,7 +9,7 @@
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
-    "regex-object": "github:overwatchcorp/regex-object"
+    "regex-object": "git+https://github.com/overwatchcorp/regex-object.git"
   },
   "scripts": {
     "start": "react-scripts start",
