@@ -5,7 +5,7 @@ import { moveNode } from '../actions';
 
 const RegexNodeComponent = ({ node, move }) => {
   const moveUp = () => {
-    move({ node: node.name, index: node.position + 1 });
+    move({ node: node.name, index: node.position - 1 });
   };
   const moveDown = () => {
     move({ node: node.name, index: node.position + 1 });
