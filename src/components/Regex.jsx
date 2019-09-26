@@ -1,24 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RegexNode from './RegexNode.jsx';
+import AddNodes from './AddNodes.jsx';
 import './Regex.css';
 
 const RegexComponent = ({ nodes, nodeList, regex }) => {
   const Nodes = nodeList.map(nn => <RegexNode key={`${nn}`} node={nodes[nn]} />);
-  nodeList.map(nn => console.log(nn, nodes[nn].position));
+  // nodeList.map(nn => console.log(nn, nodes[nn].position));
   const RegexOutput = regex.exportRegex();
   return(
     <div id="regex-parent" className="container">
-      <div className="row">
-        <div id="regex-nodes" className="col-6">
+      <div id="regex-nodes" className="row">
+        <div className="container">
+          <h5>pattern builder</h5>
+        </div>
+        <div className="mb-2 container">
+          <AddNodes />
+        </div>
+        <div className="container">
           <div className="regex-node-container">
             { Nodes }
           </div>
         </div>
-        <div id="regex-output" className="col-6">
-          <h5>regex output</h5>
+      </div>
+      <div id="regex-output" className="row">
+        <div className="container">
           <code>
-          { RegexOutput }
+            output: { RegexOutput }
           </code>
         </div>
       </div>

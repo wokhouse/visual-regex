@@ -8,3 +8,10 @@ export const moveNode = ({ node, index, addToParent = '', removeFromParent = fal
   removeFromParent,
 });
 
+export const ADD_NODE = 'ADD_NODE';
+
+export const addNode = ({ addType, contents }) => ({
+  type: ADD_NODE,
+  addType,
+  contents,
+});

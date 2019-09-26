@@ -12,7 +12,7 @@ const RegexNodeComponent = ({ node, move }) => {
   };
   return (
     <div>
-      <div>{ `${node.position}: ${node.name}` }</div>
+      <div>{ `${node.name}` }</div>
       <button onClick={moveUp} className="node-emoji-button"><span role="img" aria-label="move node up">⬆️</span></button>
       <button onClick={moveDown} className="node-emoji-button"><span role="img" aria-label="move node down">⬇️</span></button>
       <button className="node-emoji-button"><span role="img" aria-label="delete node">❌</span></button>
