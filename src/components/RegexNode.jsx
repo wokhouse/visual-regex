@@ -10,8 +10,16 @@ const RegexNodeComponent = ({ node, move }) => {
   const moveDown = () => {
     move({ node: node.name, index: node.position + 1 });
   };
+  let childStyle = {};
+  if (node.parent !== undefined) {
+    childStyle = {
+      borderLeft: '5px solid lightgrey',
+      paddingLeft: '10px',
+      marginLeft: '10px',
+    };
+  }
   return (
-    <div>
+    <div style={{ ...childStyle }}>
       <div>{ `${node.name}` }</div>
       <button onClick={moveUp} className="node-emoji-button"><span role="img" aria-label="move node up">⬆️</span></button>
       <button onClick={moveDown} className="node-emoji-button"><span role="img" aria-label="move node down">⬇️</span></button>
