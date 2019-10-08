@@ -11,7 +11,6 @@ const rootReducer = (state = {}, action) => {
       const r = new regexObj.RegexObj({...nodes}, [...nodeList], nodeCount);
       // move the node in the new regex obj
       r.moveNode({ node, index, addToParent, removeFromParent });
-      console.log(node);
       // set the new regex obj to the state
       const newState = Object.assign({}, state, { regex: r })
       return newState;

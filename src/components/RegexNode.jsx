@@ -14,6 +14,9 @@ const RegexNodeComponent = ({ node, move, nodes, nodeList }) => {
     const { parent } = e.target.dataset;
     move({ addToParent: parent, node: node.name }); 
   };
+  const moveOutOfParent = (e) => {
+    move({ removeFromParent: true, node: node.name });
+  };
   const ParentInteraction = () => {
     // if the node is above another node that can accept children, enable the button to add the node as a child node
     // of the next node
@@ -27,7 +30,12 @@ const RegexNodeComponent = ({ node, move, nodes, nodeList }) => {
     }
     if (node.parent === undefined && nextNodeCanAcceptChildren) {
       return (
-        <button onClick={moveIntoParent} className="node-emoji-button"><span data-parent={nextNode.name} role="img" aria-label="move node down">➡️</span></button>
+        <button onClick={moveIntoParent} className="node-emoji-button"><span data-parent={nextNode.name} role="img" aria-label="move node into next node as a child">➡️</span></button>
+      );
+    }
+    else if (node.parent !== undefined) {
+      return (
+        <button onClick={moveOutOfParent} className="node-emoji-button"><span role="img" aria-label="move node out of parent node">⬅️</span></button>
       );
     }
     return nextNodeCanAcceptChildren;
@@ -56,7 +64,7 @@ const mapStateToComponent = state => ({
   nodeList: state.regex.nodeList,
 });
 const mapDispatchToComponent = dispatch => ({
-  move: ({ node, index, addToParent }) => dispatch(moveNode({ node, index, addToParent })),
+  move: ({ node, index, addToParent, removeFromParent }) => dispatch(moveNode({ node, index, addToParent, removeFromParent })),
 });
 const RegexNode = connect(mapStateToComponent, mapDispatchToComponent)(RegexNodeComponent);
 
