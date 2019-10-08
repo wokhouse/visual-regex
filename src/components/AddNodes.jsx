@@ -28,7 +28,7 @@ class AddNodesComponent extends Component {
     // if we add more nodes in the future, they'll automatically
     // show up here
     const NodeButtons = Object.keys(items).map((k) =>
-      <div key={k}>
+      <div key={k} style={{ marginRight: '3px' }}>
         {
           (k === "char")
           // we need text input if it's a character node

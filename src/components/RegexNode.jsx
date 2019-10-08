@@ -3,13 +3,35 @@ import { connect } from 'react-redux';
 import './RegexNode.css';
 import { moveNode } from '../actions';
 
-const RegexNodeComponent = ({ node, move }) => {
+const RegexNodeComponent = ({ node, move, nodes, nodeList }) => {
   const moveUp = () => {
     move({ node: node.name, index: node.position - 1 });
   };
   const moveDown = () => {
     move({ node: node.name, index: node.position + 1 });
   };
+  const moveIntoParent = (e) => {
+    const { parent } = e.target.dataset;
+    move({ addToParent: parent, node: node.name }); 
+  };
+  const ParentInteraction = () => {
+    // if the node is above another node that can accept children, enable the button to add the node as a child node
+    // of the next node
+    // eg
+    // char (enable move into parent button, which would be the set node) 
+    // set
+    let nextNodeCanAcceptChildren = false;
+    const nextNode = nodes[nodeList[node.position + 1]];
+    if (nextNode !== undefined) {
+      if (nextNode.type === 'set') nextNodeCanAcceptChildren = true;
+    }
+    if (node.parent === undefined && nextNodeCanAcceptChildren) {
+      return (
+        <button onClick={moveIntoParent} className="node-emoji-button"><span data-parent={nextNode.name} role="img" aria-label="move node down">➡️</span></button>
+      );
+    }
+    return nextNodeCanAcceptChildren;
+  }
   let childStyle = {};
   if (node.parent !== undefined) {
     childStyle = {
@@ -23,14 +45,19 @@ const RegexNodeComponent = ({ node, move }) => {
       <div>{ `${node.name}` }</div>
       <button onClick={moveUp} className="node-emoji-button"><span role="img" aria-label="move node up">⬆️</span></button>
       <button onClick={moveDown} className="node-emoji-button"><span role="img" aria-label="move node down">⬇️</span></button>
+      <ParentInteraction />
       <button className="node-emoji-button"><span role="img" aria-label="delete node">❌</span></button>
     </div>
   );
 }
 
-const mapDispatchToComponent = dispatch => ({
-  move: ({ node, index }) => dispatch(moveNode({ node, index })),
+const mapStateToComponent = state => ({
+  nodes: state.regex.nodes,
+  nodeList: state.regex.nodeList,
 });
-const RegexNode = connect(null, mapDispatchToComponent)(RegexNodeComponent);
+const mapDispatchToComponent = dispatch => ({
+  move: ({ node, index, addToParent }) => dispatch(moveNode({ node, index, addToParent })),
+});
+const RegexNode = connect(mapStateToComponent, mapDispatchToComponent)(RegexNodeComponent);
 
 export default RegexNode;
