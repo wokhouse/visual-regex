@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './RegexNode.css';
-import { moveNode } from '../actions';
+import { moveNode, deleteNode } from '../actions';
 
-const RegexNodeComponent = ({ node, move, nodes, nodeList }) => {
+const RegexNodeComponent = ({ node, move, nodes, nodeList, nodeDelete }) => {
   const moveUp = () => {
     move({ node: node.name, index: node.position - 1 });
   };
@@ -48,13 +48,17 @@ const RegexNodeComponent = ({ node, move, nodes, nodeList }) => {
       marginLeft: '10px',
     };
   }
+  const deleteNode = (e) => {
+    const { node } = e.target.dataset;
+    nodeDelete({ node });
+  }
   return (
     <div style={{ ...childStyle }}>
       <div>{ `${node.name}` }</div>
       <button onClick={moveUp} className="node-emoji-button"><span role="img" aria-label="move node up">⬆️</span></button>
       <button onClick={moveDown} className="node-emoji-button"><span role="img" aria-label="move node down">⬇️</span></button>
       <ParentInteraction />
-      <button className="node-emoji-button"><span role="img" aria-label="delete node">❌</span></button>
+      <button onClick={deleteNode} className="node-emoji-button"><span data-node={node.name} role="img" aria-label="delete node">❌</span></button>
     </div>
   );
 }
@@ -65,6 +69,7 @@ const mapStateToComponent = state => ({
 });
 const mapDispatchToComponent = dispatch => ({
   move: ({ node, index, addToParent, removeFromParent }) => dispatch(moveNode({ node, index, addToParent, removeFromParent })),
+  nodeDelete: ({ node }) => dispatch(deleteNode({ node })),
 });
 const RegexNode = connect(mapStateToComponent, mapDispatchToComponent)(RegexNodeComponent);
 

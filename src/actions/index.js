@@ -15,3 +15,10 @@ export const addNode = ({ addType, contents }) => ({
   addType,
   contents,
 });
+
+export const DELETE_NODE = 'DELETE_NODE';
+
+export const deleteNode = ({ node }) => ({
+  type: DELETE_NODE,
+  node,
+});
