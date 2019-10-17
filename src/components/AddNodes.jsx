@@ -28,11 +28,11 @@ class AddNodesComponent extends Component {
     // if we add more nodes in the future, they'll automatically
     // show up here
     const NodeButtons = Object.keys(items).map((k) =>
-      <div key={k} style={{ marginRight: '3px' }}>
+      <div key={k} style={{ marginRight: '3px', display: 'inline-block' }}>
         {
           (k === "char")
           // we need text input if it's a character node
-            ? <div className="input-group mb-3">
+            ? <div className="input-group">
               <input 
                 type="text" 
                 className="form-control" 
@@ -57,6 +57,7 @@ class AddNodesComponent extends Component {
             className="btn btn-outline-success"
             data-addtype={k}
             key={k}
+            style={{ marginBottom: '4.2px' }}
           >
             {k}
           </button>
@@ -65,7 +66,7 @@ class AddNodesComponent extends Component {
     );
     // display as button group
     return(
-      <div className="btn-group" role="group" aria-label="add a node to the regex equation">
+      <div>
         { NodeButtons }
       </div>
     );

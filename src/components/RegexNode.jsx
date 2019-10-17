@@ -54,7 +54,13 @@ const RegexNodeComponent = ({ node, move, nodes, nodeList, nodeDelete }) => {
   }
   return (
     <div style={{ ...childStyle }}>
-      <div>{ `${node.name}` }</div>
+      <div>
+        {
+          (node.contents !== undefined)
+            ? <div>char: <code>{ node.contents }</code></div>
+            : `${node.type}`
+        }
+      </div>
       <button onClick={moveUp} className="node-emoji-button"><span role="img" aria-label="move node up">⬆️</span></button>
       <button onClick={moveDown} className="node-emoji-button"><span role="img" aria-label="move node down">⬇️</span></button>
       <ParentInteraction />

@@ -4,18 +4,21 @@ import rootReducer from '../reducers';
 
 const regex = new regexObj.RegexObj();
 
-const setNode = regex.addNode({
+// Answer.([0-9])=(.+)
+const parent = regex.addNode({
   type: 'set',
 });
 regex.addNode({
-  type: 'char',
-  contents: 'test',
-  parent: setNode.name,
+  type: 'lowercase_alphabet',
+  parent: parent.name,
 });
 regex.addNode({
-  type: 'lowercase_alphabet',
+  type: 'uppercase_alphabet',
+  parent: parent.name,
 });
-
+regex.addNode({
+  type: 'plus',
+});
 const store = createStore(rootReducer, { regex }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default store;
