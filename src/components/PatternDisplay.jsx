@@ -20,10 +20,17 @@ class PatternDisplayComponent extends Component {
   }
 
   render() {
-    const { pattern } = this.props;
+    let { pattern } = this.props;
     let text = '' // convert regexObj output to JS regex
     if (this.state.text) text = this.state.text;
-    const regex = new RegExp(pattern, 'g');
+    let regex;
+    let err = null;
+    try {
+      regex = new RegExp(pattern, 'g');
+    } catch (error) {
+      err = error;
+      regex = null;
+    }
     // get pattern matches
     let res = [...text.matchAll(regex)];
     return(
@@ -37,9 +44,11 @@ class PatternDisplayComponent extends Component {
         <code>{ pattern }</code>
         <pre>
           {
-            (text)
-              ? <div className="text-wrap">{ text }</div>
-              : <div className="text-muted text-wrap">input some text to test the pattern</div>
+            (err)
+              ? <div className="alert alert-danger text-wrap" role="alert">Regex Error: {err.toString()}</div>
+              : (text)
+                ? <div className="text-wrap">{ text }</div>
+                : <div className="text-muted text-wrap">input some text to test the pattern</div>
           }
         </pre>
         <code>
