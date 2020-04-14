@@ -6,7 +6,9 @@ import PatternDisplay from './PatternDisplay.jsx';
 import './Regex.css';
 
 const RegexComponent = ({ nodes, nodeList, regex }) => {
-  const Nodes = nodeList.map(nn => <RegexNode key={`${nn}`} node={nodes[nn]} />);
+  const Nodes = (nodeList.length > 0) 
+    ? nodeList.map(nn => <RegexNode key={`${nn}`} node={nodes[nn]} />) 
+    : <code>Add nodes to build a regex pattern</code>
   // nodeList.map(nn => console.log(nn, nodes[nn].position));
   const RegexOutput = regex.exportRegex();
   return(
@@ -26,15 +28,19 @@ const RegexComponent = ({ nodes, nodeList, regex }) => {
               </div>
             </div>
           </div>
-          <div id="regex-output" className="row">
-            <div className="container">
-              <code>
-                output: { RegexOutput }
-              </code>
-            </div>
-          </div>
+          {
+            (nodeList.length > 0)
+            ? <div id="regex-output" className="row">
+                <div className="container">
+                  <code>
+                    regex pattern: { RegexOutput }
+                  </code>
+                </div>
+              </div>
+            : null
+          }
         </div>
-        <div className="col-4">
+        <div className="col-lg-4 mt-2 mt-lg-0">
           <PatternDisplay />
         </div>
       </div>

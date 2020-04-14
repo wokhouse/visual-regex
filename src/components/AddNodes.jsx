@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { items } from 'regex-object';
 import { addNode } from '../actions';
+import './AddNodes.css';
 
 class AddNodesComponent extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class AddNodesComponent extends Component {
     // if we add more nodes in the future, they'll automatically
     // show up here
     const NodeButtons = Object.keys(items).map((k) =>
-      <div key={k} style={{ marginRight: '3px', display: 'inline-block' }}>
+      <div key={k} className="node-button">
         {
           (k === "char")
           // we need text input if it's a character node

@@ -1,0 +1,8 @@
+.node-button {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.node-button .input-group {
+  margin-bottom: 4px;
+}
